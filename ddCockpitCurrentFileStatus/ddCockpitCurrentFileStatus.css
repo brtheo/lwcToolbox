@@ -1,0 +1,44 @@
+:host {
+  --stellBrandBlue: #243782;
+  --stellTangerineDarker: #e42313;
+  --badgeSize: 35px;
+  --spacing: .5rem;
+}
+
+lightning-button-icon {
+  margin-top: calc(var(--spacing)*2);
+}
+
+ul {
+  list-style: none;
+  margin: var(--spacing) 0;
+  display: grid;
+  grid-template-columns: repeat(2,1fr);
+  grid-template-rows: repeat(3,1fr);
+  gap: var(--spacing);
+  min-height: 100px;
+}
+
+li {
+  border: 2px var(--stellBrandBlue) solid;
+  padding: .25rem;
+  border-radius: var(--spacing);
+  display: flex;
+  align-items: center;
+  gap: var(--spacing);
+}
+
+
+.badge {
+  color: white;
+  background-color: var(--stellBrandBlue);
+  border-radius: 500vmax;
+  min-width: var(--badgeSize);
+  min-height: var(--badgeSize);
+  padding: var(--spacing);
+  display: grid;
+  place-content: center;
+}
+.highlighted {
+  background-color: var(--stellTangerineDarker);
+}

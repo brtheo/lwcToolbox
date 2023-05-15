@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<LightningComponentBundle xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>56.0</apiVersion>
+   <isExposed>true</isExposed>
+    <targets>
+        <target>lightning__HomePage</target>
+        <target>lightning__AppPage</target>
+        <target>lightning__RecordPage</target>
+        <target>lightningCommunity__Default</target>
+        <target>lightningCommunity__Page</target>
+    </targets>
+    <!-- Below is needed for community RecordId Quote__c -->
+     <targetConfigs>
+        <targetConfig targets="lightning__RecordPage">
+            <objects>
+                <object>Quote__c</object>
+            </objects>
+        </targetConfig>
+        <targetConfig targets="lightningCommunity__Default">
+            <property name="recordId" label="Record ID" description="Value should be {!recordId}" type="String" />
+        </targetConfig>
+    </targetConfigs>
+</LightningComponentBundle>

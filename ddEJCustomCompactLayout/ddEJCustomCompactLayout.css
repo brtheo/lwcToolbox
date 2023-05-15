@@ -1,0 +1,86 @@
+.slds-media__figure img{
+  height: 67px;   
+  width: 67px; 
+}
+.ddEjCustomContainer{
+  min-height:100px;
+  border-style:solid;
+  border-color:#5AACE6;
+  overflow: auto;
+  font-size: 1rem;
+  padding-right: 1.5rem;
+}
+
+.ddEjCustomContainer div:first-child{
+  float: left;
+}
+
+.item1 { grid-area: item1; }
+.item2 { 
+  grid-area: item2; 
+}
+.item3 { grid-area: item3; }
+.item4 { 
+  grid-area: item4; 
+  text-align: left;
+}
+.item5 { grid-area: item5; }
+.item6 { grid-area: item6; }
+.item7 { grid-area: item7; }
+
+.ddEJCustomGridParent {
+  display: grid;
+  grid-column-gap: 2px;
+  grid-row-gap: 2px;
+  grid-template-areas: 
+  "item1 . item2"
+  "item3 item4 item5"
+  "item6 . item7";  
+  }
+
+  .item2, .item5, .item7{
+    text-align: right;
+  }
+  .item6, .item7{
+    font-size: 0.8rem;
+  }
+
+  .ddEJCustomGridParent div:first-child{
+    text-align: left;
+  }
+
+  @media (max-width: 1100px) {
+    .ddEJCustomGridParent {
+      grid-template-areas: 
+      "item1 . item2"
+      "item3 . item4" 
+      "item5 . ."
+      "item6 . item7";  
+      }
+      .item4{
+        text-align: right;
+      }
+      .item5{
+        text-align: left;
+      }
+      
+  }
+
+  @media (max-width: 600px) {
+    .ddEJCustomGridParent {
+      grid-template-areas: 
+      "item1"
+      "item2"
+      "item3" 
+      "item4" 
+      "item5"
+      "item6"
+      "item7";  
+      }
+      .ddEJCustomGridParent >div {
+        text-align: left;
+      }
+      .item6{
+        margin: 2px 0;
+      }
+  }

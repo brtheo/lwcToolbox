@@ -1,0 +1,35 @@
+<template>
+
+  <template if:true={header}>
+    <lightning-modal-header style={headerStyle} label={header}></lightning-modal-header>
+  </template>
+
+  <lightning-modal-body style={bodyStyle}> 
+    <lightning-formatted-rich-text value={content}></lightning-formatted-rich-text>
+  </lightning-modal-body>
+
+  <lightning-modal-footer style={footerStyle}>
+    <section style={footerActionsStyle}>
+      <lightning-button
+        label={action.yes}
+        onclick={actionYesHandler}
+      ></lightning-button>
+      <template if:false={issimple}>
+        <lightning-button
+          style={actionNoStyle}
+          label={action.no}
+          onclick={actionNoHandler}
+        ></lightning-button>
+      </template>
+    </section>
+
+    <template if:true={footer}>
+      <p style={footerHelperStyle}>
+        <lightning-formatted-rich-text
+          value={footer}
+        ></lightning-formatted-rich-text>
+      </p>
+    </template>
+
+  </lightning-modal-footer>
+</template>

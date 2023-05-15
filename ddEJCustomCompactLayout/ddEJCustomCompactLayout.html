@@ -1,0 +1,45 @@
+<template>
+  <div class="slds-page-header ddEjCustomContainer" >
+    <div class="slds-media__figure">
+      <img src={RESSOURCEimgEjCustomCompac}/>
+    </div>
+    <div class="slds-media ddEJCustomGridParent">
+      
+        <div class="item1" >
+          <strong>
+            {Quote__c.Nom_ou_raison_sociale__c}
+          </strong>
+        </div>
+        <div class="item2">
+          <strong>
+            {Quote__c.NomVendeur__c}
+          </strong>
+        </div>
+        <div class="item3">
+          <p>Proposition N° <strong>{Quote__c.NoOffre__c}</strong></p>
+        </div>
+        <div class="item4">
+          <template if:true={Quote__c.NoDemande__c}>
+            <p>Demande N°<strong>{Quote__c.NoDemande__c}</strong>
+            </p>
+          </template>
+        </div>
+        <div class="item5">
+          <template if:true={Quote__c.NoContrat__c}>
+            <p>Contrat N°<strong>{Quote__c.NoContrat__c}</strong>
+            </p>
+          </template>
+        </div>
+        <div class="item6"> 
+          <p>{TypeBienLabel}
+          <template if:true={Quote__c.LibelleCommercialVehicule__c}> - {Quote__c.LibelleCommercialVehicule__c}</template>
+          <template if:true={Quote__c.LCDV__c}>
+            {Quote__c.LCDV__c}
+          </template></p>
+        </div>
+        <div class="item7">
+          <template if:true={Quote__c.LibPcomPfin__c}><p>Financement : {Quote__c.LibPcomPfin__c}</p></template>
+        </div>
+    </div>
+  </div>
+</template>

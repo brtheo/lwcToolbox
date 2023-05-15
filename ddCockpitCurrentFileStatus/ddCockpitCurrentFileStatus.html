@@ -1,0 +1,21 @@
+<template>
+  <ul>
+    <template if:true={stillLoading}>
+      <lightning-spinner></lightning-spinner>
+    </template>
+
+    <template if:false={stillLoading}>
+      <template for:each={statuses} for:item="status">
+        <li key={status.id} style={status.cssStyle}>
+          <div class={status.cssClass}>
+            {status.counter}
+          </div>
+          <div>
+            <a href={status.linkUrl}>{status.statusLabel}</a>
+          </div>
+        </li>
+      </template>
+
+    </template>
+  </ul>
+</template>

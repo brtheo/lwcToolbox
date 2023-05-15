@@ -1,0 +1,10 @@
+:host {
+  --slds-c-modal-color-border: transparent;
+  --slds-c-modal-header-color-background: var(--lwc-colorPageBackground, var(--stellWhite, white));
+  --slds-c-modal-content-color-background: var(--lwc-colorPageBackground, var(--stellWhite, white));
+  --slds-c-modal-footer-color-background: var(--lwc-colorPageBackground, var(--stellWhite, white));
+  --slds-c-modal-content-text-color: var(--stellAnthracite, #252525);
+  --slds-c-modal-footer-text-color: var(--stellAnthracite, #252525);
+
+  --slds-c-button-text-color: var(--stellAccentColor, currentColor);
+}
