@@ -5,7 +5,7 @@ import { getRecord, getFieldValue } from 'lightning/uiRecordApi';
  * @template T
  * @typedef {new (...args: any[]) => T} GenericConstructor
  */
-
+// @param {{new(...args: any[]): object}}
 /**
  * @typedef {Object} Field
  * @prop {string} fieldApiName
@@ -27,11 +27,11 @@ export function useRecordFields(genericConstructor, fields) {
   }
 
   Object.defineProperty(placeholder.prototype, objectApiName, {
-      get() {
-        return Object.fromEntries(fields.map((field) => {
-          return [field.fieldApiName, getFieldValue(this._fields.data, field)];
-        }))
-      }
+    get() {
+      return Object.fromEntries(fields.map((field) => {
+        return [field.fieldApiName, getFieldValue(this._fields.data, field)];
+      }))
+    }
   });
 
   return returnableClass;
