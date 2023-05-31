@@ -1,4 +1,4 @@
-export { useLabelCategory } from 'c/useLabelCategory';
+
 export { useRecordFields } from 'c/useRecordFields';
 export { useFormValidation } from 'c/useFormValidation';
 export { useReactiveBinding } from 'c/useReactiveBinding';

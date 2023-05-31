@@ -5,7 +5,7 @@
   </template>
 
   <lightning-modal-body style={bodyStyle}> 
-    <lightning-formatted-rich-text value={content}></lightning-formatted-rich-text>
+      <main data-body></main>
   </lightning-modal-body>
 
   <lightning-modal-footer style={footerStyle}>
@@ -14,7 +14,7 @@
         label={action.yes}
         onclick={actionYesHandler}
       ></lightning-button>
-      <template if:false={issimple}>
+      <template if:false={isSimple}>
         <lightning-button
           style={actionNoStyle}
           label={action.no}

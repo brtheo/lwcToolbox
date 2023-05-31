@@ -7,6 +7,7 @@ export default class LwcToolboxDialog extends LightningModal {
   @api header;
   @api footer;
   @api isSimple = false;
+  @api waitForInput = false;
 
   @api headerStyle;
 
@@ -19,7 +20,7 @@ export default class LwcToolboxDialog extends LightningModal {
     font-size: 1rem;  
   `;
 
-  @api footerWStyle = `
+  @api footerStyle = `
     display: flex;
     flex-direction: column;
     gap: 1rem;
@@ -36,12 +37,28 @@ export default class LwcToolboxDialog extends LightningModal {
     font-style: italic;
     text-align: left;
   `;
+
+  renderedCallback() {
+    this.template.querySelector('[data-body]')
+    .insertAdjacentHTML('beforeend', this.content); 
+  }
+
+  get returnableData() {
+    return Object.fromEntries(
+      [...this.template.querySelectorAll('[data-returned]')].map($input => 
+        [$input.name,$input.value]
+      )
+    )
+  }
   
   actionYesHandler() {
-    this.close(1);
+    if(this.waitForInput) 
+      this.close(this.returnableData)
+    else
+      this.close(Boolean(1));
   }
   actionNoHandler() {
-    this.close(0);
+    this.close(Boolean(0));
   }
   closeModal() {
     this.actionNoHandler();
@@ -51,31 +68,45 @@ export default class LwcToolboxDialog extends LightningModal {
 export function useDialog(genericConstructor) {
   return class extends genericConstructor {
     async openDialog(...args) {
-      return Boolean(await LwcToolboxDialog.open(...args));
+      return await LwcToolboxDialog.open(...args);
     }
   }
 }
-
 /**
- * 
- const result = await BbiDialog.open({
-            description: '',
-            header: this.label.EselleSPPopinTitle,
-            content,
-            footer: this.label.EselleSPPopinFooter,
-            action: {
-                yes: 'Sí', 
-                no: 'No'
-            }
-        });
- checkResult(result) {
-  return result === 'YES' 
-  && (
-      result === 'NO'
-      || typeof result !== 'undefined'
-  )
+ * @typedef {Object} InputParam
+ * @prop {string} label
+ * @prop {string} value
+ * @prop {string} type
+ * @prop {boolean=} disabled
+ * @prop {boolean=} required
+ * @prop {boolean=} returned
+ * @prop {string=} name
+ */
+/**
+ * @callback Input
+ * @param {InputParam} opt
+ * @returns {string}
+ */
+export const Dialog = {
+  /** @type {Input} */
+  Input: (opt) => {
+    const {label, value, type} = opt;
+    
+    return /*html*/`
+    <div class="slds-form-element">
+      <label class="slds-form-element__label">${label}</label>
+      <div class="slds-form-element__control">
+        <input 
+          class="slds-input"
+          type="${type}" 
+          value="${value}"
+          ${opt.disabled ? 'disabled' : ''}
+          ${opt.required ? 'required' : ''}
+          ${opt.returned ? 'data-returned' : ''}
+          ${opt.name ? `name="${opt.name}"` : ''}
+          />
+      </div>
+    </div>
+    `
+  }
 }
-
-
-
-**/
