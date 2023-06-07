@@ -1,6 +1,23 @@
 import { LightningElement, api } from 'lwc';
 import LightningModal from 'lightning/modal';
 
+/**
+ * @typedef {Object} Action
+ * @prop {String} yes
+ * @prop {String} [no]
+ */
+
+/**
+ * @typedef {Object} DialogOptions
+ * @prop {String} description
+ * @prop {String} header
+ * @prop {String} content
+ * @prop {Action} action
+ * @prop {Boolean} [isSimple=false]
+ * @prop {Boolean} [waitForInput=false]
+ * @prop {String} [footer]
+ */
+
 export default class LwcToolboxDialog extends LightningModal {
   @api content;
   @api action = {yes:'', no: ''};
@@ -12,7 +29,7 @@ export default class LwcToolboxDialog extends LightningModal {
   @api headerStyle;
 
   @api actionNoStyle = `
-    --slds-c-button-neutral-color-background: var(--stellTangerineDarker);
+    --slds-c-button-neutral-color-background: var(--stellTangerineDarker, red);
     --slds-c-button-text-color: var(--stellWhite, white);
   `;
 
@@ -65,8 +82,64 @@ export default class LwcToolboxDialog extends LightningModal {
   }
 }
 
+/**
+ * @template T
+ * @typedef {new (...args: any[]) => T} GenericConstructor
+ */
+
+/**
+ * @example <caption>Basic usage</caption>
+ * import {useDialog} from 'c/lwcToolbox';
+ * export myLwc extends useDialog(LightningElement) {
+ *  async handleShowModal() {
+ *    const result = await this.openDialog({
+ *      description: 'Modal Description',
+ *      header: 'Modal Header',
+ *      content: 'Modal content',
+ *      action: {yes: 'Agree', no: 'Disagree'}
+ *    });
+ *    if(result) // meaning 'Yes' button was clicked
+ *    else // 'No' or 'X' button were clicked
+ *  }
+ * }
+ * @example <caption>Only one button</caption>
+ * import {useDialog} from 'c/lwcToolbox';
+ * export myLwc extends useDialog(LightningElement) {
+ *  async handleShowModal() {
+ *    const result = this.openDialog({
+ *      ...
+ *      isSimple: true
+ *      action: {yes: 'Agree'}
+ *    });
+ *  }
+ * }
+ * @example <caption>Include html form and get back the datas</caption>
+ * import {useDialog, Dialog} from 'c/lwcToolbox';
+ * export myLwc extends useDialog(LightningElement) {
+ *  async handleShowModal() {
+ *    const datas = this.openDialog({
+ *      ...
+ *      waitForInput: true
+ *      content: `
+ *        ${Dialog.Input({
+ *         type: text, value: localVariableToBind, label: 'Any Label', required: true, returned: true, name 'myField'
+ *        })}
+ *      `,
+ *      ...
+ *    });
+ *    if(datas) console.log(datas.myField) // value of the input updated in the modal
+ *  }
+ * }
+ * @template T
+ * @param {GenericConstructor<T>} genericConstructor 
+ * @returns {GenericConstructor<Anonymous>}
+ */
 export function useDialog(genericConstructor) {
   return class extends genericConstructor {
+    /**
+     * @param  {DialogOptions} args 
+     * @returns {Promise<Boolean | Object.{String,String}>}
+     */
     async openDialog(...args) {
       return await LwcToolboxDialog.open(...args);
     }

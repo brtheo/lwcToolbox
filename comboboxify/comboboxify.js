@@ -12,6 +12,35 @@ const SELF_IDENTIFIER = '$';
  */
 
 /**
+ * @example <caption>Basic Usage</caption>
+ * import { comboboxify } from 'c/lwcToolbox';
+ * export default myLwc extends LightningElement {
+ * ㅤ@track comboboxOptions
+ * ㅤ@wire(apexMethod)
+ *   wiredMethod({err,data}) {
+ *     if(data) {
+ * // use '$' symbol if the auraEnabled method is returning a list of primitives
+ *        this.comboboxOptions = comboboxify(data, {label: '$', value: '$'});
+ *    }
+ * }
+ * @example <caption>AuraEnabled method is returning a list of Objects</caption>
+ *   wiredMethod({err,data}) {
+ *     if(data)
+ *        this.comboboxOptions = comboboxify(data, {
+ *          label: ['Deeply__r.Nested__r.Object__c'],
+ *          value: ['Deeply__r.Nested__r.Object__r.Value__c']
+ *        });
+ *    }
+ * }
+ * @example <caption>In case you want to concatenate multiple fields (will be joined by a 'space')</caption>
+ *   wiredMethod({err,data}) {
+ *     if(data)
+ *        this.comboboxOptions = comboboxify(data, {
+ *          label: ['FirstName', 'LastName'],
+ *          value: ['Id']
+ *        });
+ *    }
+ * }
  * @param {Array<SObject>} input 
  * @param {Combobox} param 
  * @returns {Array<Combobox>}
