@@ -4,6 +4,18 @@
  */
 
 /**
+ * @example <caption>Basic Usage</caption>
+ * // html
+ * <lightning-input data-checkable>some input</lightning-input>
+ * <lightning-input data-checkable>some other input</lightning-input>
+ * <lightning-button onclick={handleValidateForm}></lightning-button>
+ * // js
+ * import {useFormValidation} from 'c/lwcToolbox';
+ * export class myLwc extends useDialog(LightningElement) {
+ *  handleValidateForm() {
+ *    if(this.isFormValid) //doSomething()
+ *  }
+ * }
  * @template T
  * @param {GenericConstructor<T>} genericConstructor 
  * @returns {GenericConstructor<Anonymous>}

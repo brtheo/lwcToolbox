@@ -90,7 +90,7 @@ export default class LwcToolboxDialog extends LightningModal {
 /**
  * @example <caption>Basic usage</caption>
  * import {useDialog} from 'c/lwcToolbox';
- * export myLwc extends useDialog(LightningElement) {
+ * export class myLwc extends useDialog(LightningElement) {
  *  async handleShowModal() {
  *    const result = await this.openDialog({
  *      description: 'Modal Description',
@@ -104,7 +104,7 @@ export default class LwcToolboxDialog extends LightningModal {
  * }
  * @example <caption>Only one button</caption>
  * import {useDialog} from 'c/lwcToolbox';
- * export myLwc extends useDialog(LightningElement) {
+ * export class myLwc extends useDialog(LightningElement) {
  *  async handleShowModal() {
  *    const result = this.openDialog({
  *      ...
@@ -115,7 +115,7 @@ export default class LwcToolboxDialog extends LightningModal {
  * }
  * @example <caption>Include html form and get back the datas</caption>
  * import {useDialog, Dialog} from 'c/lwcToolbox';
- * export myLwc extends useDialog(LightningElement) {
+ * export class myLwc extends useDialog(LightningElement) {
  *  async handleShowModal() {
  *    const datas = this.openDialog({
  *      ...

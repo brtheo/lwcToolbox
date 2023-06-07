@@ -14,7 +14,7 @@ const SELF_IDENTIFIER = '$';
 /**
  * @example <caption>Basic Usage</caption>
  * import { comboboxify } from 'c/lwcToolbox';
- * export default myLwc extends LightningElement {
+ * export default class myLwc extends LightningElement {
  * ㅤ@track comboboxOptions
  * ㅤ@wire(apexMethod)
  *   wiredMethod({err,data}) {

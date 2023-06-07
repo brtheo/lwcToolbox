@@ -13,6 +13,22 @@ import { getRecord, getFieldValue } from 'lightning/uiRecordApi';
  */
 
 /**
+ * @example <caption>Basic Usage</caption>
+ * import {useRecordFields} from 'c/lwcToolbox';
+ * 
+ * import AnnualRevenue from '@salesforce/schema/Account.AnnualRevenue'; 
+ * import CreatedDate from '@salesforce/schema/Account.CreatedDate';
+ * import SLAExpirationDate__c from '@salesforce/schema/Account.SLAExpirationDate__c';
+ * 
+ * const fields = [AnnualRevenue, CreatedDate, SLAExpirationDate__c];
+ * 
+ * export class myLwc extends useRecordFields(LightningElement, fields) {
+ *  ㅤ@api recordId;
+ *    
+ *    doSomething() {
+ *       console.log(this.Account.AnnualRevenue, this.Account.SLAExpirationDate__c);
+ *    }
+ * }
  * @template T
  * @param {GenericConstructor<T>} genericConstructor 
  * @param {Array<Fields>} fields 
