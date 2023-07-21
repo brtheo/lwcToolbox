@@ -4,6 +4,18 @@
  */
 
 /**
+ * @example <caption>Basic Usage</caption>
+ * // html
+ * <lightning-input
+ *  data-bind="myField__c"
+ *  value={myField__c}
+ *  onchange={bind}
+ * >Some input</lightning-input>
+ * // js
+ * import {useReactiveBinding} from 'c/lwcToolbox';
+ * export class myLwc extends useReactiveBinding(LightningElement) {
+ *  ㅤ@track myField__c // value of input will always reflect back onto the bound prop
+ * }
  * @template T
  * @param {GenericConstructor<T>} genericConstructor 
  * @returns {GenericConstructor<Anonymous>}
