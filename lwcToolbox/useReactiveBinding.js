@@ -32,10 +32,14 @@ export function useReactiveBinding(genericConstructor) {
       if(!_bind.includes('.'))
         this[_bind] = e.detail.value;      
       else {
-        const generatedCode = _bind
-        .split('.')
-        .reduce((prev, _, i, arr) => prev+=`['${arr[i]}']`,'this') + ` = '${e.detail.value}'`;
-        new Function(generatedCode).bind(this)();
+        const [k,v] = _bind.split('.');
+        const copy = this[k];
+        copy[v] = e.detail.value;
+        this[k] = copy;
+      //   const generatedCode = _bind
+      //   .split('.')
+      //   .reduce((prev, _, i, arr) => prev+=`['${arr[i]}']`,'this') + ` = '${e.detail.value}'`;
+      //   new Function(generatedCode).bind(this)();
       }
     }
   }

@@ -55,20 +55,24 @@ function deepenedObject(obj) {
  */
 export function useRecordFields(genericConstructor, fields) {
   const {objectApiName} = fields[0];
-  console.log(objectApiName, 'lwcToolbox - useRecordFields - objectApiName')
   const placeholder = class extends genericConstructor {
     @wire(getRecord, {recordId: '$recordId', fields: fields})
     _fields;
+    @track __fields__;
+    __isInit__ = false;
+
   }
 
   Object.defineProperty(placeholder.prototype, objectApiName, {
     get() {
-      return deepenedObject(Object.fromEntries(fields.map((field) => {
-        console.log(field.fieldApiName, 'lwcToolbox - useRecordFields - fieldApiName', getFieldValue(this._fields.data, field))
+      return !this.__isInit__ ? deepenedObject(Object.fromEntries(fields.map((field) => {
         return [field.fieldApiName, getFieldValue(this._fields.data, field)];
-      })))
+      }))) : this.__fields__
+    },
+    set(value) {
+      this.__isInit__ = true;
+      this.__fields__ = value;
     }
   });
-
   return placeholder;
 }
