@@ -1,4 +1,4 @@
-import {wire} from 'lwc';
+import {wire, track} from 'lwc';
 import { getRecord, getFieldValue } from 'lightning/uiRecordApi';
 
 /**
