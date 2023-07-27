@@ -1,4 +1,4 @@
-import {wire} from 'lwc';
+import {wire, track} from 'lwc';
 import { getRecord, getFieldValue } from 'lightning/uiRecordApi';
 
 /**
@@ -57,21 +57,30 @@ export function useRecordFields(genericConstructor, fields) {
   const {objectApiName} = fields[0];
   const placeholder = class extends genericConstructor {
     @wire(getRecord, {recordId: '$recordId', fields: fields})
-    _fields;
-    @track __fields__;
-    __isInit__ = false;
-
+    __WIRED_RESULTS__;
+    __IS_INIT__ = false;
+    __SOBJECT_API_NAME__ = objectApiName;
+    @track __SOBJECT_GETTER__;
+    
   }
-
   Object.defineProperty(placeholder.prototype, objectApiName, {
     get() {
-      return !this.__isInit__ ? deepenedObject(Object.fromEntries(fields.map((field) => {
-        return [field.fieldApiName, getFieldValue(this._fields.data, field)];
-      }))) : this.__fields__
+      return !this.__IS_INIT__ 
+        ? Object.assign(
+          {'Id': this?.__WIRED_RESULTS__?.data?.id}, 
+          deepenedObject(
+            Object.fromEntries(
+              fields.map(
+                field => [field.fieldApiName, getFieldValue(this.__WIRED_RESULTS__.data, field)]
+            )
+           )
+          )
+        )
+        : this.__SOBJECT_GETTER__;
     },
     set(value) {
-      this.__isInit__ = true;
-      this.__fields__ = value;
+      this.__IS_INIT__ = true;
+      this.__SOBJECT_GETTER__ = value;
     }
   });
   return placeholder;

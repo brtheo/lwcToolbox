@@ -9,6 +9,13 @@ const TOAST_VARIANTS = ['error','success', 'info', 'warning'];
  */
 
 /**
+ * @example <caption>Basic Usage</caption>
+ * import {Toaster} from 'c/lwcToolbox';
+ * Toaster.success('Message of the toast') //simple success toast with no title
+ * Toaster.success('Message of the toast', 'Title of the toast') //simple success toast with no title
+ * Toaster.error('Some error toast')
+ * Toaster.warning('Some warning toast')
+ * Toaster.info('Some info toast')
  * @typedef {Object} Toaster
  * @prop {Toast} error 
  * @prop {Toast} success 
@@ -17,13 +24,6 @@ const TOAST_VARIANTS = ['error','success', 'info', 'warning'];
  */
 
 /**
- * @example <caption>Basic Usage</caption>
- * import {Toaster} from 'c/lwcToolbox';
- * Toaster.success('Message of the toast') //simple success toast with no title
- * Toaster.success('Message of the toast', 'Title of the toast') //simple success toast with no title
- * Toaster.error('Some error toast')
- * Toaster.warning('Some warning toast')
- * Toaster.info('Some info toast')
  * @type {Toaster}
  */
 export const Toaster = TOAST_VARIANTS
