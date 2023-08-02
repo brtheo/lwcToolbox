@@ -1,3 +1,5 @@
+import { LightningElement } from "lwc";
+
 /**
  * Useful method to pass as an input a custom label formated as an ES6 template literal
  * like this : Hello ${name}
@@ -36,4 +38,8 @@ export function pick(...fields) {
   return {
     from: (obj) => (({...fields}) => ({...fields}))(obj)
   }
+}
+
+export function compose(...fns) {
+  return fns.reduceRight( (comp, [mix,...arg]) => class extends mix(comp, ...arg){}, LightningElement);
 }

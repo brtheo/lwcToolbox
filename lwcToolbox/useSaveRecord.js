@@ -1,4 +1,4 @@
-import { updateRecord } from 'lightning/uiRecordApi';
+import { updateRecord, createRecord} from 'lightning/uiRecordApi';
 
 /**
  * @template T
@@ -11,8 +11,10 @@ import { updateRecord } from 'lightning/uiRecordApi';
  */
 export function useSaveRecord(genericConstructor) {
   return class Anonymous extends genericConstructor {
-    async saveRecord() {
-      return await updateRecord( {fields: this[this['__SOBJECT_API_NAME__']]} );
+    async saveRecord(record, apiName = this['__SOBJECT_MXN_SOBJECT_REF_API_NAME__']) {
+      return record.Id
+        ? await updateRecord( {fields: record} )
+        : await createRecord( {apiName, fields: record} )
     }
   }
 }

@@ -58,14 +58,14 @@ export function useRecordFields(genericConstructor, fields) {
   const placeholder = class extends genericConstructor {
     @wire(getRecord, {recordId: '$recordId', fields: fields})
     __WIRED_RESULTS__;
-    __IS_INIT__ = false;
-    __SOBJECT_API_NAME__ = objectApiName;
+    __IS_REC_FIELD_INIT__ = false;
+    __REC_FIELD_MXN_SOBJECT_API_NAME__ = objectApiName;
     @track __SOBJECT_GETTER__;
     
   }
   Object.defineProperty(placeholder.prototype, objectApiName, {
     get() {
-      return !this.__IS_INIT__ 
+      return !this.__IS_REC_FIELD_INIT__ 
         ? Object.assign(
           {'Id': this?.__WIRED_RESULTS__?.data?.id}, 
           deepenedObject(
@@ -79,7 +79,7 @@ export function useRecordFields(genericConstructor, fields) {
         : this.__SOBJECT_GETTER__;
     },
     set(value) {
-      this.__IS_INIT__ = true;
+      this.__IS_REC_FIELD_INIT__ = true;
       this.__SOBJECT_GETTER__ = value;
     }
   });

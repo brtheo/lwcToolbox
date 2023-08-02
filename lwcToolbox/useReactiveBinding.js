@@ -22,6 +22,7 @@
  */
 export function useReactiveBinding(genericConstructor) {
   return class Anonymous extends genericConstructor {
+    
     /**
      * Automatically assign the changed input to the bound variable
      * @param {InputEvent} e 
@@ -30,7 +31,7 @@ export function useReactiveBinding(genericConstructor) {
       const {currentTarget} = e;
       const _bind = currentTarget.dataset['bind'];
       if(!_bind.includes('.'))
-        this[_bind] = e.detail.value;      
+        this[_bind] = e.detail.value;
       else {
         const [k,v] = _bind.split('.');
         const copy = this[k];
