@@ -4,6 +4,7 @@
  */
 
 /**
+ * Binds together an input to a class property
  * @example <caption>Basic Usage</caption>
  * // html
  * <lightning-input

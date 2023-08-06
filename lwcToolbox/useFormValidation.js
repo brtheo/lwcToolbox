@@ -4,6 +4,8 @@
  */
 
 /**
+ * Gives access to the class property isFormValid, 
+ * returning either true or false and, if false, shows the field validation errors
  * @example <caption>Basic Usage</caption>
  * // html
  * <lightning-input data-checkable>some input</lightning-input>

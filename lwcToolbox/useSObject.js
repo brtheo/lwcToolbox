@@ -2,20 +2,29 @@ import { getObjectInfo, getPicklistValuesByRecordType } from "lightning/uiObject
 import { wire, track } from 'lwc';
 import { pick } from "./utils";
 
-{/* <lightning-combobox
-data-bind="EarlySettlement__ref.usage__c"
-value={EarlySettlement__ref.usage__c}
-label={EarlySettlement__info.usage__c.label}
-options={EarlySettlement__info.usage__c.values}
-onchange={bind} >
-</lightning-combobox> */}
-
-
 /**
  * @template T
  * @typedef {new (...args: any[]) => T} GenericConstructor
  */
 /**
+ * @example <caption>Basic Usage</caption>
+ * // lwc.js
+ * import {useSObject, useReactiveBinding, compose} from 'c/lwcToolbox';
+ * import fields from './anyObject__c.fields.js';
+ * const Composed = compose(
+ *   [useSObject, fields],
+ *   [useReactiveBinding],
+ *   LightningElement
+ * );
+ * export default class lwc extends Composed {...}
+ * // lwc.html
+ * <lightning-combobox
+ *   data-bind="AnyObject__ref.anyField__c"
+ *   value={AnyObject__ref.anyField__c}
+ *   label={AnyObject__info.anyField__c.label}
+ *   options={AnyObject__info.anyField__c.values}
+ *   onchange={bind} >
+ * </lightning-combobox>
  * @template T
  * @param {GenericConstructor<T>} genericConstructor 
  * @returns {GenericConstructor<Anonymous>}
@@ -86,11 +95,7 @@ export function useSObject(GenericConstructor, _fields, recordTypeId = 'default'
             const {
               defaultValue, 
               controllerValue,
-              values} = pick(
-                'defaultValue',
-                'controllerValue',
-                'values'
-              ).from(this.__SOBJECT_MXN_FILTERED_PICKLIST_FIELDS__[field]);
+              values} = this.__SOBJECT_MXN_FILTERED_PICKLIST_FIELDS__[field];
             this.__SOBJECT_MXN_INFO_RESULT__[field] =  {
               ...this.__SOBJECT_MXN_INFO_RESULT__[field],
               defaultValue,
@@ -100,7 +105,7 @@ export function useSObject(GenericConstructor, _fields, recordTypeId = 'default'
           }
         });
       }
-      if(error) console.error(error, 'eorro')
+      if(error) console.error(error, 'error')
     }
 
   }
