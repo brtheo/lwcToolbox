@@ -22,17 +22,25 @@ const TOAST_VARIANTS = ['error','success', 'info', 'warning'];
  * @prop {Toast} info 
  * @prop {Toast} warning 
  */
-
+const baseConf = {
+  title: '',
+  messageData: [],
+  mode: 'dismissable'
+}
 /**
  * @type {Toaster}
  */
 export const Toaster = TOAST_VARIANTS
   .reduce( (ret,variant) => Object.assign(ret, {
-    [variant]: (message, title = '') => dispatchEvent(
-      new ShowToastEvent({
-        title,
-        message,
-        variant,
-      })
-    )
+    [variant]: (message, conf = baseConf) => {
+      conf = {...baseConf, ...conf};
+      dispatchEvent(
+        new ShowToastEvent({
+          title: conf.title,
+          message: message.replace('<br>','\n'),
+          variant,
+          messageData: conf.messageData,
+          mode: conf.mode
+        })
+    )}
 }),{});

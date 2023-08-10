@@ -41,5 +41,6 @@ export function pick(...fields) {
 }
 
 export function compose(...fns) {
-  return fns.reduceRight( (comp, [mix,...arg]) => class extends mix(comp, ...arg){}, LightningElement);
+  const base = fns.pop();
+  return fns.reduceRight( (comp, [mix,...arg]) => class extends mix(comp, ...arg){}, base);
 }
