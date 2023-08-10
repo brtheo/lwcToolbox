@@ -5,14 +5,11 @@ import { getRecord, getFieldValue } from 'lightning/uiRecordApi';
  * @template T
  * @typedef {new (...args: any[]) => T} GenericConstructor
  */
-// @param {{new(...args: any[]): object}}
 /**
  * @typedef {Object} Field
  * @prop {string} fieldApiName
  * @prop {string} objectApiName
  */
-
-
 /**
  * 
  * @param {Object} obj 
@@ -32,6 +29,8 @@ function deepenedObject(obj) {
 
 
 /**
+ * Gives access to `<AnyObject>__c` property.
+ * It's a map of the fields api name to their values. Can be edited and saved by passing the object to the `saveRecord` method provided by the mixin `useSaveRecord`
  * @example <caption>Basic Usage</caption>
  * import {useRecordFields} from 'c/lwcToolbox';
  * 

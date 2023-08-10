@@ -9,6 +9,7 @@ const TOAST_VARIANTS = ['error','success', 'info', 'warning'];
  */
 
 /**
+ * Short hand for sending toast message
  * @example <caption>Basic Usage</caption>
  * import {Toaster} from 'c/lwcToolbox';
  * Toaster.success('Message of the toast') //simple success toast with no title

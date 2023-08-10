@@ -31,8 +31,15 @@ export function setDataStyle(styles) {
  * @param {From} from
  */
 /**
+ * @example <caption>Basic Usage</caption>
+ * const foo = [
+ *   {bar: "bar", baz: "baz"}, 
+ *   {bar: "barbar", baz: "bazbaz"}
+ * ].map(obj => pick('bar').from(obj));
+ * // foo => [{bar:"bar"}, {bar:"barbar"}]
+ * 
  * @param {Array<String>} fields 
- * @returns {PickReturns}
+ * @returns {PickReturns} - Returns a new object containing only the fields passed as arguments from another object.
  */
 export function pick(...fields) {
   return {
@@ -40,6 +47,21 @@ export function pick(...fields) {
   }
 }
 
+/**
+ * @example <caption>Basic Usage</caption>
+ * import {LightningElement} from 'lwc';
+ * import {compose, useRecordFields, useReactiveBinding} from 'c/lwcToolbox';
+ * const fields = [...];
+ * const Composed = compose(
+ *   [useRecordFields, fields],
+ *   [useReactiveBinding],
+ *   LightningElement
+ * );
+ * export default MyComponent extends Composed {...}
+ * 
+ * @param  {...any} fns - arguments array of Record<Mixin, mixinArg1, mixinArgs2>
+ * @returns {import("./useSObject").GenericConstructor} 
+ */
 export function compose(...fns) {
   const base = fns.pop();
   return fns.reduceRight( (comp, [mix,...arg]) => class extends mix(comp, ...arg){}, base);

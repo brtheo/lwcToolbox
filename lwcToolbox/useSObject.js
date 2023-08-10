@@ -2,7 +2,6 @@ import { getObjectInfo, getPicklistValuesByRecordType } from "lightning/uiObject
 import { wire, track } from 'lwc';
 import { pick } from "./utils";
 
-
 /**
  * @template T
  * @typedef {new (...args: any[]) => T} GenericConstructor
