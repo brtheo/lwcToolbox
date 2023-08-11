@@ -1,13 +1,6 @@
 import { api } from 'lwc';
 import LightningModal from 'lightning/modal';
-const delay = (t) => new Promise((resolve) => setTimeout(resolve, t));
-/**
- * @typedef {Object} Options
- * @param {boolean} autoClose
- */
-const OPTIONS = {
-  autoClose: false
-};
+
 /**
  * @param {CSSStyleSheet} stylesheet - The dynamic stylesheet
  * @param {HTMLTemplateElement} HTMLTemplate - dynamic template
