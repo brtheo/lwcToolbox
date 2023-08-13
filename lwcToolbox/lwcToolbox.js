@@ -4,7 +4,7 @@ export { useReactiveBinding } from './useReactiveBinding';
 export { useSObject } from './useSObject';
 export { useSaveRecord } from './useSaveRecord';
 export { useUnscopedStyling } from './useUnscopedStyling';
-export { useDialog, Dialog } from 'c/lwcToolboxDialog'; // deprecated
+// export { useDialog, Dialog } from 'c/lwcToolboxDialog'; // deprecated
 export { createModal } from './createModal';
 export { comboboxify } from './comboboxify';
 export { Toaster} from './toaster';
