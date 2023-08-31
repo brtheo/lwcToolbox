@@ -2,9 +2,8 @@ export { useRecordFields } from './useRecordFields';
 export { useFormValidation } from './useFormValidation';
 export { useReactiveBinding } from './useReactiveBinding';
 export { useSObject } from './useSObject';
-export { useSaveRecord } from './useSaveRecord';
+export { useDML } from './useDML';
 export { useUnscopedStyling } from './useUnscopedStyling';
-// export { useDialog, Dialog } from 'c/lwcToolboxDialog'; // deprecated
 export { createModal } from './createModal';
 export { comboboxify } from './comboboxify';
 export { Toaster} from './toaster';

@@ -26,7 +26,7 @@ import { updateRecord, createRecord} from 'lightning/uiRecordApi';
  * @param {GenericConstructor<T>} genericConstructor 
  * @returns {GenericConstructor<Anonymous>}
  */
-export function useSaveRecord(genericConstructor) {
+export function useDML(genericConstructor) {
   return class extends genericConstructor {
     /**
      * @param {SObjectRecord} record 
@@ -37,6 +37,12 @@ export function useSaveRecord(genericConstructor) {
       return record.Id
         ? await updateRecord( {fields: record} )
         : await createRecord( {apiName, fields: record} )
+    }
+    /**
+     * @param {RecordId} id 
+     */
+    async deleteRecord(id) {
+      await deleteRecord(id);
     }
   }
 }

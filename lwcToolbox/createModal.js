@@ -1,9 +1,16 @@
 import { api } from 'lwc';
 import LightningModal from 'lightning/modal';
+/**
+ * @typedef {Object} CallbacksMap
+ * @param {Array<Function>} initialRenderCallback
+ * @param {Array<Function>} disconnectedCallback
+ * @param {Array<Object.<String,Function>>} eventHandlerCallback
+ */
 
 /**
  * @param {CSSStyleSheet} stylesheet - The dynamic stylesheet
  * @param {HTMLTemplateElement} HTMLTemplate - dynamic template
+ * @param {CallbacksMap} callbacks - Map of different registrable callbacks
 
  */
 // * @param {Options} options
@@ -41,8 +48,8 @@ export const createModal = (stylesheet, HTMLTemplate, callbacks = false) => {
         if(this.$NO) this.$NO.addEventListener('click', this.CLOSE_BY.NO);
 
         this.#INIT = true;
-        if(callbacks) 
-          callbacks.forEach(cb => cb(this))
+        if(callbacks.initialRenderCallback) 
+          callbacks.initialRenderCallback.forEach(cb => cb(this))
       }
     }
     
@@ -52,6 +59,11 @@ export const createModal = (stylesheet, HTMLTemplate, callbacks = false) => {
       if(this.$NO) this.$NO.removeEventListener('click', this.CLOSE_BY.NO)
     }
   }
+  if(callbacks.eventHandlerCallback) 
+    Object.entries(callbacks.eventHandlerCallback).forEach(
+      ([key,cb]) => Modal.prototype[key] = cb
+    )
+  
   // Returning a promise that resolves into showing the modal
   document.querySelector('lightning-overlay-container')?.remove();
   return Modal;

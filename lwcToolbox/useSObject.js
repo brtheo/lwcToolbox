@@ -2,6 +2,13 @@ import { getObjectInfo, getPicklistValuesByRecordType } from "lightning/uiObject
 import { wire, track } from 'lwc';
 import { pick } from "./utils";
 
+const isCustomObject = objectApiName => objectApiName.endsWith('__c'),
+      trimCustomIdentifier = objectApiName => objectApiName.slice(0,-1),
+      sanitizeApiName = objectApiName => 
+        isCustomObject(objectApiName) 
+          ? trimCustomIdentifier(objectApiName)
+          : `${objectApiName}__`
+
 /**
  * @template T
  * @typedef {new (...args: any[]) => T} GenericConstructor
@@ -37,8 +44,8 @@ import { pick } from "./utils";
  */
 export function useSObject(GenericConstructor, _fields, recordTypeId = 'default') {
   const {objectApiName} = _fields[0];
-  const objectRefName = `${objectApiName.slice(0,-1)}ref`;
-  const objectInfoName = `${objectApiName.slice(0,-1)}info`;
+  const objectRefName = `${sanitizeApiName(objectApiName)}ref`;
+  const objectInfoName = `${sanitizeApiName(objectApiName)}info`;
 
   const placeholder = class extends GenericConstructor {
 
@@ -55,7 +62,7 @@ export function useSObject(GenericConstructor, _fields, recordTypeId = 'default'
     __SOBJECT_MXN_INFO_WIRED__({data, error}) {
       if(data) {
         const {fields, defaultRecordTypeId} = data;
-         /** Make a filtered object containing only the fields passed as arguments */
+        /** Make a filtered object containing only the fields passed as arguments */
         const filteredFields = Object.fromEntries(Object.keys(fields)
         .filter(fieldApiName => 
           _fields.map(_field =>
@@ -88,7 +95,7 @@ export function useSObject(GenericConstructor, _fields, recordTypeId = 'default'
       recordTypeId: '$__SOBJECT_MXN_RTYPE_ID__'
     })
     __SOBJECT_MXN_PICKLIST_WIRED__({data, error}) {
-      if(data) {
+      if(data) { 
         /**
          * Make filtered list of picklist fields present in the requested fields
          * if the length of retrieved picklistFieldValues is different from the length 

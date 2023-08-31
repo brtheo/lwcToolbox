@@ -40,7 +40,7 @@ const genericLog = (logType, args, method='log') => {
   );
   objLog.length > 0 && closeGroup(objLog);
 }
-export const Logger =
+export const createLogger = () =>
   Object.keys(LOG_COLORS).reduce((ret, logType) => 
     Object.assign(ret,{
     [logType]: (...args) => logType == 'perf'
@@ -48,3 +48,5 @@ export const Logger =
       : genericLog(logType, args, logType)
   }),{}
 )
+
+export const Logger = createLogger()
