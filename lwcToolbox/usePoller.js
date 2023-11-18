@@ -1,5 +1,24 @@
 import { refreshApex } from '@salesforce/apex';
-export const usePoller = (genericConstructor, {prop, wiredMethod, iterrationOffset, interval}) => {     
+
+/**
+ * @template T
+ * @typedef {new (...args: any[]) => T} GenericConstructor
+ */
+/**
+ * @typedef {Object} usePollerOptions
+ * @prop {string} prop;
+ * @prop {string} wiredMethod;
+ * @prop {number} iterrationOffset;
+ * @prop {number} interval;
+ */ 
+/**
+ * @template T
+ * @param {GenericConstructor<T>} genericConstructor 
+ * @param {usePollerOptions} options
+ * @returns {GenericConstructor}
+ */
+export const usePoller = (genericConstructor, {prop, wiredMethod, iterrationOffset, interval}) => {
+    
   return class extends genericConstructor {
     POLLER;
     POLLER_PROGRESS = 0;
