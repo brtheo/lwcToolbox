@@ -16,11 +16,11 @@ import {  wire } from 'lwc';
  * @param {GenericConstructor<T>} genericConstructor 
  * @returns {GenericConstructor<Anonymous>}
  */
-export const useRelatedRecords = (genericConstructor, relatedListId, fields) => {
+export const useRelatedRecords = (genericConstructor, {relatedListId, fields}) => {
   const FIELDS_APINAME = fields.map(field => field.split('.').toSpliced(0,1).join('.'))
   const placeholder = class extends genericConstructor {
     @wire(getRelatedListRecords, {
-      parentRecordId: '$recordId',
+      parentRecordId: '$parentRecordId',
       relatedListId: relatedListId,
       fields: fields
     })
