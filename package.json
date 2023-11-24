@@ -1,9 +1,0 @@
-{
-  "scripts": {
-    "doc": "jsdoc --configure jsdoc.json --verbose"
-  },
-  "dependencies": {
-    "clean-jsdoc-theme": "^4.2.17",
-    "jsdoc": "^4.0.2"
-  }
-}
