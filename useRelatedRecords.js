@@ -36,12 +36,12 @@ export const useRelatedRecords = (genericConstructor, {relatedListId, fields, wh
         return this?.__WIRED_RELATED_RESULTS__.data?.records.map(record => 
           Object.fromEntries(
             FIELDS_APINAME.map(field => {
-              const [related, fieldValue] = field.split('.').at(0).at(-1) === 'r' || 's'
+              const [related, fieldValue] = ['r','s'].includes(field.split('.').at(0).at(-1))
                 ? field.split('.')
-                : [field, '']
-              const fieldApiName = record?.[related]
+                : [field, ''];
+              const fieldApiName = record.fields?.[related]
               return [
-                related, field.split('.').at(0).at(-1) === 'r' || 's'
+                related, ['r','s'].includes(field.split('.').at(0).at(-1))
                   ? Object.fromEntries([[fieldValue, fieldApiName?.value?.fields?.[fieldValue]?.value]])
                   : fieldApiName?.value
                 ]
