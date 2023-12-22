@@ -2,7 +2,7 @@ import { track } from 'lwc';
 export function useState(genericConstructor, states) {
   const r = Object.entries(states).find(([k,v]) => v && [k,v] )
   const [k] = r ? r : [undefined]
-  const clazz = class {
+  const clazz = class extends genericConstructor {
     @track STATE = k;
   } 
   Object.defineProperties(clazz.prototype, Object.fromEntries(Object.keys(states).map(state => [
