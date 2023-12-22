@@ -1,4 +1,5 @@
 export { useRecordFields } from './useRecordFields';
+export { useState } from './useState';
 export { useFormValidation } from './useFormValidation';
 export { useReactiveBinding } from './useReactiveBinding';
 export { useSObject } from './useSObject';
