@@ -10,5 +10,6 @@ export { comboboxify } from './comboboxify';
 export { Toaster } from './toaster';
 export { usePoller } from './usePoller';
 export { useRelatedRecords } from './useRelatedRecords';
+export { useSuspense } from './useSuspense';
 
 export {interpolate, pick, setDataStyle, compose} from './utils';
