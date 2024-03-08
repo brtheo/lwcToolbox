@@ -1,6 +1,9 @@
 import { getObjectInfo, getPicklistValuesByRecordType } from "lightning/uiObjectInfoApi";
 import { wire, track } from 'lwc';
 import { pick } from "./utils";
+import { trace } from './utils';
+const MXN_NAME = 'useSObject';
+
 
 const isCustomObject = objectApiName => objectApiName.endsWith('__c'),
       trimCustomIdentifier = objectApiName => objectApiName.slice(0,-1),
@@ -127,7 +130,7 @@ export function useSObject(GenericConstructor, _fields, recordTypeId = 'default'
           }
         });
       }
-      if(error) console.error(error, 'Error')
+      if(error) trace(MXN_NAME, error)
     }
 
   }
