@@ -1,15 +1,19 @@
 import {wire, track} from 'lwc';
 import { getRecord, getFieldValue } from 'lightning/uiRecordApi';
-
+import { trace } from './utils';
+const MXN_NAME = 'useRecordFields';
 /**
  * @template T
  * @typedef {new (...args: any[]) => T} GenericConstructor
  */
+// @param {{new(...args: any[]): object}}
 /**
  * @typedef {Object} Field
  * @prop {string} fieldApiName
  * @prop {string} objectApiName
  */
+
+
 /**
  * 
  * @param {Object} obj 
@@ -30,7 +34,7 @@ function deepenedObject(obj) {
 
 /**
  * Gives access to `<AnyObject>__c` property.
- * It's a map of the fields api name to their values. Can be edited and saved by passing the object to the `saveRecord` method provided by the mixin `useSaveRecord`
+ * It's a map of the fields api name to their values. Can be edited and saved by passing the object to the `saveRecord` method provided by the mixin `useDML`
  * @example <caption>Basic Usage</caption>
  * import {useRecordFields} from 'c/lwcToolbox';
  * 
@@ -64,7 +68,9 @@ export function useRecordFields(genericConstructor, fields) {
   }
   Object.defineProperty(placeholder.prototype, objectApiName, {
     get() {
-      return !this.__IS_REC_FIELD_INIT__ 
+      if(this?.__WIRED_RESULTS__?.error) 
+        trace(MXN_NAME, this.__WIRED_RESULTS__.error)
+      else return !this.__IS_REC_FIELD_INIT__ 
         ? Object.assign(
           {'Id': this?.__WIRED_RESULTS__?.data?.id}, 
           deepenedObject(
