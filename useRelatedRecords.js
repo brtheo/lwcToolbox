@@ -1,6 +1,7 @@
 import { getRelatedListRecords } from 'lightning/uiRelatedListApi';
 import {  wire } from 'lwc';
-
+import { trace } from './utils';
+const MXN_NAME = 'useRelatedRecords';
 /**
  * Binds together an input to a class property
  * @example <caption>Basic Usage</caption>
@@ -19,6 +20,7 @@ import {  wire } from 'lwc';
 export const useRelatedRecords = (genericConstructor, {relatedListId, fields, where, sortBy, pageSize}) => {
   const FIELDS_APINAME = fields.map(field => field.split('.').toSpliced(0,1).join('.'))
   const placeholder = class extends genericConstructor {
+    
     @wire(getRelatedListRecords, {
       parentRecordId: '$parentRecordId',
       relatedListId,
@@ -31,8 +33,9 @@ export const useRelatedRecords = (genericConstructor, {relatedListId, fields, wh
   }
   Object.defineProperty(placeholder.prototype, relatedListId, {
     get() {
-      if(this?.__WIRED_RELATED_RESULTS__) {
-        // fields = this?.__WIRED_RELATED_RESULTS__.data?.records?.at(0)?.fields;
+      if(this?.__WIRED_RELATED_RESULTS__?.error)
+        trace(MXN_NAME,this.__WIRED_RELATED_RESULTS__.error)
+      else {
         return this?.__WIRED_RELATED_RESULTS__.data?.records.map(record => 
           Object.fromEntries(
             FIELDS_APINAME.map(field => {
